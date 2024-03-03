@@ -20,17 +20,36 @@ app.use(express.json()); // enable json format
 
 //=====get-all-users=========
 app.get('/users', (req,res) => {
-    controller.getUsers(users => {
-        res.send(users);
+    controller.getUsers(req, rest, next => {
+        res.send(); 
     })
 })
 
-//============get-user-by-id=========
-app.get('/user', (req,res) => {
+//============create-user=========
+app.post('/createuser', (req,res) => {
     const id = req.query.id;
-    controller.getUserById(id, user => {
-        res.send(user);
+    controller.addUser(req.body, (callback) => { 
+        req.send()
     })
-})
+});
+
+
+//============update-user=========
+app.put('/updateuser', (req,res) => {
+    const id = req.query.id;
+    controller.updateUser(req.body, (callack) => { 
+        req.send(callack)
+    })
+});
+
+//============delete-user=========
+app.delete('/deleteuser', (req,res) => {
+    const id = req.query.id;
+    controller.deleteUser(req.body, (callack) => { 
+        req.send(callack)
+    })
+});
+
+
 
 module.exports = app;
